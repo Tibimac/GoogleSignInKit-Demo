@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "GoogleSignInKit",
+        "repositoryURL": "https://github.com/Tibimac/GoogleSignInKit",
+        "state": {
+          "branch": null,
+          "revision": "d6bcf202a4bc68788ddf100f7a442bd4c79d9d3f",
+          "version": "1.0.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
