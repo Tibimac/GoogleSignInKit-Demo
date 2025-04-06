@@ -24,6 +24,8 @@ enum Constants {
         clientID: "\(googleAppID).apps.googleusercontent.com",
         defaultScheme: googleSignInScheme,
         defaultCallbackURL: "\(googleSignInScheme)://",
-        defaultScopes: [.profile, .email]
+        defaultScopes: [.profile,
+                        .email,
+                        .init(rawValue: "https://www.googleapis.com/auth/youtube.readonly")]
     )
 }

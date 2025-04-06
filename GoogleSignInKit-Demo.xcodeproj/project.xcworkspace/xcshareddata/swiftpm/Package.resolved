@@ -1,16 +1,15 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "GoogleSignInKit",
-        "repositoryURL": "https://github.com/Tibimac/GoogleSignInKit",
-        "state": {
-          "branch": null,
-          "revision": "d6bcf202a4bc68788ddf100f7a442bd4c79d9d3f",
-          "version": "1.0.0"
-        }
+  "originHash" : "2b25cfffc13bfcd1f55da588c8ef67ac96c8425de4e3a08d12563c85022e9831",
+  "pins" : [
+    {
+      "identity" : "googlesigninkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Tibimac/GoogleSignInKit",
+      "state" : {
+        "revision" : "7ca1b68de89c5191bbd61c15ef686709714fe9e7",
+        "version" : "2.0.0"
       }
-    ]
-  },
-  "version": 1
+    }
+  ],
+  "version" : 3
 }

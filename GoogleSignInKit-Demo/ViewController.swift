@@ -70,34 +70,30 @@ class ViewController: UIViewController {
                                                 message: "Great the credentials from Google are there! Touch the Share button to share a JSON object of them if you need.",
                                                 preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-        let shareAction = UIAlertAction(title: "Share", style: .default) { [weak self] _ in
-            struct CredentialsEncodable: Encodable {
-                public let idToken: String?
-                public let tokenType: String?
-                public let accessToken: String?
-                public let refreshToken: String?
-                public let expiresIn: TimeInterval?
-                public let scopes: [String]?
-            }
-            let credentialsEncodable = CredentialsEncodable(
-                idToken: credentials.idToken,
-                tokenType: credentials.tokenType,
-                accessToken: credentials.accessToken,
-                refreshToken: credentials.refreshToken,
-                expiresIn: credentials.expiresIn,
-                scopes: credentials.scopes?.compactMap({ $0.rawValue })
-            )
+        let shareAction = UIAlertAction(title: "Share", style: .default) { _ in
             let jsonEncoder = JSONEncoder()
             jsonEncoder.outputFormatting = .prettyPrinted
             guard
-                let jsonData = try? jsonEncoder.encode(credentialsEncodable),
+                let jsonData = try? jsonEncoder.encode(credentials),
                 let jsonString = String(data: jsonData, encoding: .utf8)
             else { return }
             let activityVC = UIActivityViewController(activityItems: [jsonString], applicationActivities: nil)
-            self?.present(activityVC, animated: true)
+            if let popover = activityVC.popoverPresentationController {
+                popover.sourceView = self.signInButton
+                popover.sourceRect = self.signInButton.bounds
+                popover.permittedArrowDirections = [.up, .down]
+            }
+            self.present(activityVC, animated: true)
         }
+        // iOS add the actions from left to right but macOS does it the opposite way! I want the Share action to always be on the right.
+        #if targetEnvironment(macCatalyst) || os(macOS)
+        alertController.addAction(shareAction)
+        alertController.addAction(okAction)
+        #elseif os(iOS)
         alertController.addAction(okAction)
         alertController.addAction(shareAction)
+        #endif
+        alertController.preferredAction = shareAction
         present(alertController, animated: true)
     }
 
@@ -128,18 +124,6 @@ class ViewController: UIViewController {
             let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertController.addAction(okAction)
             present(alertController, animated: true)
-        }
-    }
-
-}
-
-fileprivate extension GoogleSignInKit.Scope {
-    
-    var rawValue: String {
-        switch self {
-        case .email: return "email"
-        case .openID: return "openid"
-        case .profile: return "profile"
         }
     }
 
