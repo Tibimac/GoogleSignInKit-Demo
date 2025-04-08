@@ -26,6 +26,7 @@ enum Constants {
         defaultCallbackURL: "\(googleSignInScheme)://",
         defaultScopes: [.profile,
                         .email,
+                        .openID,
                         .init(rawValue: "https://www.googleapis.com/auth/youtube.readonly")]
     )
 }
